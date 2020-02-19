@@ -42,17 +42,17 @@ box-shadow: none;
 }
 
 .button:nth-child(1){
-    background-color: #ff4545;
+    background-color: rgb(255, 69, 69);
 }
 .button:nth-child(2){
-    background-color: #45ff45;
+    background-color: rgb(69, 255, 69);
 }
 .button:nth-child(3){
-    background-color: #4545ff;
+    background-color: rgb(69, 69, 255);
 }
 .button:nth-child(4){
-    background-color: #ffff45;
+    background-color: rgb(255, 255, 69);
 }
 .button:nth-child(5){
-    background-color: #ff45ff;
+    background-color: rgb(255, 69, 255);
 }
