@@ -36,23 +36,24 @@ body{
     cursor: pointer;
 }
 
+.clicking-button,
 .button:active{
 transform: translate(0, 7px);
 box-shadow: none;
 }
 
 .button:nth-child(1){
-    background-color: rgb(255, 69, 69);
+    background-color: hsl(0, 100%, 64%);
 }
 .button:nth-child(2){
-    background-color: rgb(69, 255, 69);
+    background-color: hsl(120, 100%, 64%);
 }
 .button:nth-child(3){
-    background-color: rgb(69, 69, 255);
+    background-color: hsl(240, 100%, 64%);
 }
 .button:nth-child(4){
-    background-color: rgb(255, 255, 69);
+    background-color: hsl(60, 100%, 64%);
 }
 .button:nth-child(5){
-    background-color: rgb(255, 69, 255);
+    background-color: hsl(300, 100%, 64%);
 }

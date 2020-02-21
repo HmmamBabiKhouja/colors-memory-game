@@ -4,22 +4,24 @@ buttons.forEach(button => button.addEventListener("click", buttonClicked))
 
 // the array we create to make the player try memorize it
 let baseArray=[];
-
 // edit this later
 let level=3;
+// start from 0
+let i = 0;
+
 round();
 
 
-/********************
- **** functions ***** 
- ********************/
+//////////////////////////////
+///////// functions //////////
+//////////////////////////////
 
 function round(){
+    //it makes the sequence that player should remember
     fillBaseArray();
-
-    buttons.forEach(button => {
-        // light buttons up for user so he can memeorize them
-    })
+    //play the sequence to the play so he can memeorize it
+    
+    playSequence(i);
 }
 
 
@@ -27,10 +29,6 @@ function round(){
 function buttonClicked() {
     changeBodyColor(this);
 
-}
-
-function changeButtonsColor() {
-    
 }
 
 function changeBodyColor(buttonNumber){
@@ -43,32 +41,32 @@ function fillBaseArray(){
     baseArray=[];
     for( let i =0;i<level;i++){
         let randomNum=Math.floor(Math.random()*level);
-        baseArray.push(randomNum+1);
+        baseArray.push(randomNum);
     }
 }
 
+// playing the seqence so the player can memorize them
+function playSequence(index){
+    clickButton(index);
+    index+=1;
+    setTimeout(()=>{
+        if(index<baseArray.length){
+            playSequence(index);
+        }
+    },2500);
+}
 
-
-// // the array that we get from user input 
-// let playerArray=[];
-
-
-// (function round(){
-//     fillBaseArray();
-//     console.log(baseArray);
-//     playerArray=[];
-
-//     level++;
-// })()
-
-
-
-
-
+// does the effect of pressing
+function clickButton(index){
+    let button=buttons[baseArray[index]];
+    button.classList.add("clicking-button");
+    setTimeout(()=> {
+        button.classList.remove("clicking-button");
+    },2000);
+} 
 // function checkArrays(baseArr, playerArr){
 //     for( let i=0;i<baseArr.length;i++){
 //         if(baseArr[i]!==playerArr[i]) return false;
 //     }
 //     return true;
 // }
-
