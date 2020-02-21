@@ -5,7 +5,7 @@ buttons.forEach(button => button.addEventListener("click", buttonClicked))
 // the array we create to make the player try memorize it
 let baseArray=[];
 // edit this later
-let level=3;
+let level=1;
 // start from 0
 let i = 0;
 
@@ -60,10 +60,12 @@ function playSequence(index){
 function clickButton(index){
     let button=buttons[baseArray[index]];
     button.classList.add("clicking-button");
+    changeBodyColor(button);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },2000);
+    },1700);
 } 
+
 // function checkArrays(baseArr, playerArr){
 //     for( let i=0;i<baseArr.length;i++){
 //         if(baseArr[i]!==playerArr[i]) return false;
