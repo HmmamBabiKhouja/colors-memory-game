@@ -9,12 +9,13 @@ body {
     height: 100vh;
     font-family: 'Lato', serif;
     text-align: center;
+
 }
 
 .block{
     width: 60vw;
     margin: 0 auto;
-    transform: translate(0,150%);
+    transform: translate(0,80%);
 }
 
 h2,
@@ -25,7 +26,11 @@ p,
 }
 
 h2{
-    font-size: 3rem;
+    font-size: 3.4rem;
+}
+
+p{
+font-size: 1.3rem;
 }
 
 .link{
@@ -38,7 +43,7 @@ h2{
 .link:visited,
 .icon {
     color: #ffffff;
-    font-size: 3rem;
+    font-size: 5rem;
 }
 
 

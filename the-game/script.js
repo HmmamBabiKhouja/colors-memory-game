@@ -2,8 +2,6 @@
 
 let buttons=document.querySelectorAll(".button")
 let score = document.querySelector("#score-count");
-let finalScore= document.querySelector("#final-score")
-console.log(finalScore)
 
 // button sequence player should memorize
 let baseArray=[];
@@ -54,7 +52,7 @@ function playSequence(){
         if(index===baseArray.length){
             buttons.forEach(button =>button.addEventListener("click", buttonClicked));
         }
-    },2000);
+    },1500);
 }
 
 // does the effect of pressing
@@ -64,7 +62,7 @@ function clicking(index){
     changeBodyColor(button);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },1200);
+    },800);
 } 
 
 function buttonClicked() {
@@ -92,8 +90,7 @@ function checkArrays(playerArr, baseArr){
     if (playerArr.length !== baseArr.length) return false;
     for( let i=0;i<baseArr.length;i++){
         if(baseArr[i]!==playerArr[i]){
-            window.open("../start&end-pages/game-over.html","_self");
-            finalScore.innerHTML=level;
+            let myWindow=window.open("../start&end-pages/game-over.html","_self");
         }    
     }
     return true;
