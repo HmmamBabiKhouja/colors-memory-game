@@ -1,63 +1,63 @@
+// remember to block player input during sequence getting played 
+
 let buttons=document.querySelectorAll(".button")
 
-buttons.forEach(button => button.addEventListener("click", buttonClicked))
-
-// the array we create to make the player try memorize it
+// button sequence player should memorize
 let baseArray=[];
+// player input 
+let playerArray=[];
 // edit this later
-let level=1;
-// start from 0
-let i = 0;
+// block pressing buttons during the sequence getting played
+let blockBtn= true;
+let index=0;
 
+let level = 2;
+
+setTimeout({},1000)
 round();
-
 
 //////////////////////////////
 ///////// functions //////////
 //////////////////////////////
 
 function round(){
+    resetValues();
     //it makes the sequence that player should remember
     fillBaseArray();
     //play the sequence to the play so he can memeorize it
+    playSequence();
     
-    playSequence(i);
+    setInterval(checkForMatch,500)
 }
 
-
-
-function buttonClicked() {
-    changeBodyColor(this);
-
-}
-
-function changeBodyColor(buttonNumber){
-    let button=buttonNumber;
-    let cssColor= getComputedStyle(button);
-    document.body.style.background = cssColor.background;
-}
-
-function fillBaseArray(){
-    baseArray=[];
-    for( let i =0;i<level;i++){
-        let randomNum=Math.floor(Math.random()*level);
+function fillBaseArray() {
+    buttons.forEach(button =>button.removeEventListener("click", buttonClicked));
+    baseArray = [];
+    for (let i = 0; i < level; i++) {
+        let randomNum = Math.floor(Math.random() * 5);
         baseArray.push(randomNum);
     }
 }
 
 // playing the seqence so the player can memorize them
-function playSequence(index){
-    clickButton(index);
+function playSequence(){
+    clicking(index);
     index+=1;
     setTimeout(()=>{
+        console.log(index)
+        console.log(baseArray.length)
         if(index<baseArray.length){
             playSequence(index);
+        }
+
+        if(index===baseArray.length){
+            buttons.forEach(button =>button.addEventListener("click", buttonClicked));
         }
     },2500);
 }
 
 // does the effect of pressing
-function clickButton(index){
+function clicking(index){
     let button=buttons[baseArray[index]];
     button.classList.add("clicking-button");
     changeBodyColor(button);
@@ -66,9 +66,39 @@ function clickButton(index){
     },1700);
 } 
 
-// function checkArrays(baseArr, playerArr){
-//     for( let i=0;i<baseArr.length;i++){
-//         if(baseArr[i]!==playerArr[i]) return false;
-//     }
-//     return true;
-// }
+function buttonClicked() {
+    changeBodyColor(this);
+    if(playerArray.length<baseArray.length){
+        playerArray.push(Number(this.dataset.num));
+    }
+}
+
+function changeBodyColor(buttonNumber){
+    let button=buttonNumber;
+    let cssColor= getComputedStyle(button);
+    document.body.style.background = cssColor.background;
+}
+
+function checkForMatch() {
+    if (checkArrays(playerArray, baseArray)) {
+        level++;
+        round();
+    } else {
+        console.log("wrong")
+    }
+}
+
+function checkArrays(playerArr, baseArr){
+    if (playerArr.length !== baseArr.length) return false;
+    for( let i=0;i<baseArr.length;i++){
+        if(baseArr[i]!==playerArr[i]) return false;
+    }    
+    return true;
+}
+
+function resetValues(){
+    index=0;
+    blockBtn=true;
+    playerArray=[]
+    baseArray=[];
+}
