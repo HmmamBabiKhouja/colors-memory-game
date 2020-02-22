@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Lato', serif;
+    text-align: center;
+}
+
+.block{
+    width: 60vw;
+    margin: 0 auto;
+    transform: translate(0,150%);
+}
+
+h2,
+p,
+.block-icon{
+    color: #ffffff;
+    margin-bottom: 1.4rem;
+}
+
+h2{
+    font-size: 3rem;
+}
+
+.link{
+    padding: 5px;
+    outline-style: none;
+    text-decoration: none;
+}
+
+.link,
+.link:visited,
+.icon {
+    color: #ffffff;
+    font-size: 3rem;
+}
+
+
+
+

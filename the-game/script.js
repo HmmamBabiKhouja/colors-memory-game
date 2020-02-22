@@ -1,6 +1,9 @@
 // remember to block player input during sequence getting played 
 
 let buttons=document.querySelectorAll(".button")
+let score = document.querySelector("#score-count");
+let finalScore= document.querySelector("#final-score")
+console.log(finalScore)
 
 // button sequence player should memorize
 let baseArray=[];
@@ -13,7 +16,7 @@ let index=0;
 
 let level = 2;
 
-setTimeout({},1000)
+setTimeout({},2000)
 round();
 
 //////////////////////////////
@@ -44,8 +47,6 @@ function playSequence(){
     clicking(index);
     index+=1;
     setTimeout(()=>{
-        console.log(index)
-        console.log(baseArray.length)
         if(index<baseArray.length){
             playSequence(index);
         }
@@ -53,7 +54,7 @@ function playSequence(){
         if(index===baseArray.length){
             buttons.forEach(button =>button.addEventListener("click", buttonClicked));
         }
-    },2500);
+    },2000);
 }
 
 // does the effect of pressing
@@ -63,7 +64,7 @@ function clicking(index){
     changeBodyColor(button);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },1700);
+    },1200);
 } 
 
 function buttonClicked() {
@@ -82,17 +83,19 @@ function changeBodyColor(buttonNumber){
 function checkForMatch() {
     if (checkArrays(playerArray, baseArray)) {
         level++;
+        score.innerHTML=level;
         round();
-    } else {
-        console.log("wrong")
-    }
+    }    
 }
 
 function checkArrays(playerArr, baseArr){
     if (playerArr.length !== baseArr.length) return false;
     for( let i=0;i<baseArr.length;i++){
-        if(baseArr[i]!==playerArr[i]) return false;
-    }    
+        if(baseArr[i]!==playerArr[i]){
+            window.open("../start&end-pages/game-over.html","_self");
+            finalScore.innerHTML=level;
+        }    
+    }
     return true;
 }
 
