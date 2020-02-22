@@ -2,6 +2,12 @@
 
 let buttons=document.querySelectorAll(".button")
 let score = document.querySelector("#score-count");
+let audios={};
+    audios["audio0"]= new Audio("../sounds/sound (1).mp3")
+    audios["audio1"] = new Audio("../sounds/sound (2).mp3");
+    audios["audio2"] = new Audio("../sounds/sound (3).mp3");
+    audios["audio3"] = new Audio("../sounds/sound (4).mp3");
+    audios["audio4"] = new Audio("../sounds/sound (5).mp3");
 
 // button sequence player should memorize
 let baseArray=[];
@@ -14,21 +20,21 @@ let index=0;
 
 let level = 2;
 
-setTimeout({},2000)
 round();
+
 
 //////////////////////////////
 ///////// functions //////////
 //////////////////////////////
 
-function round(){
+function round() {
     resetValues();
     //it makes the sequence that player should remember
     fillBaseArray();
     //play the sequence to the play so he can memeorize it
     playSequence();
-    
-    setInterval(checkForMatch,500)
+
+    setInterval(checkForMatch, 500);
 }
 
 function fillBaseArray() {
@@ -42,7 +48,7 @@ function fillBaseArray() {
 
 // playing the seqence so the player can memorize them
 function playSequence(){
-    clicking(index);
+    pressing(index);
     index+=1;
     setTimeout(()=>{
         if(index<baseArray.length){
@@ -52,23 +58,31 @@ function playSequence(){
         if(index===baseArray.length){
             buttons.forEach(button =>button.addEventListener("click", buttonClicked));
         }
-    },1500);
+    },1300);
 }
 
 // does the effect of pressing
-function clicking(index){
-    let button=buttons[baseArray[index]];
+function pressing(index){
+    let btnNum=baseArray[index];
+    let button=buttons[btnNum];
+    playSound(btnNum);
     button.classList.add("clicking-button");
     changeBodyColor(button);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },800);
-} 
+    },600);
+}
+
+function playSound(num){
+    audios["audio"+num].play();
+}
 
 function buttonClicked() {
     changeBodyColor(this);
     if(playerArray.length<baseArray.length){
-        playerArray.push(Number(this.dataset.num));
+        let btnNum = Number(this.dataset.num);
+        playerArray.push(btnNum);
+        playSound(btnNum);
     }
 }
 
