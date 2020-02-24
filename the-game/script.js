@@ -3,25 +3,20 @@
 let buttons=document.querySelectorAll(".button")
 let score = document.querySelector("#score-count");
 let audios={};
-    audios["audio0"]= new Audio("../sounds/sound (1).mp3")
-    audios["audio1"] = new Audio("../sounds/sound (2).mp3");
-    audios["audio2"] = new Audio("../sounds/sound (3).mp3");
-    audios["audio3"] = new Audio("../sounds/sound (4).mp3");
-    audios["audio4"] = new Audio("../sounds/sound (5).mp3");
+
+    for(let i =0; i<4;i++){
+        audios[`audio${i}`]= new Audio(`../sounds/sound (${i}).wav`)
+    }
 
 // button sequence player should memorize
 let baseArray=[];
 // player input 
 let playerArray=[];
-// edit this later
-// block pressing buttons during the sequence getting played
-let blockBtn= true;
+// blocks the player of pressing buttons
+// let blockBtn= true;
+// to keep the while loop looping and calling round function
 let index=0;
-
 let level = 2;
-
-round();
-
 
 //////////////////////////////
 ///////// functions //////////
@@ -33,12 +28,18 @@ function round() {
     fillBaseArray();
     //play the sequence to the play so he can memeorize it
     playSequence();
+    // checks if the player's array is equal to 
+    checkInput();    
+}
 
-    setInterval(checkForMatch, 500);
+function resetValues() {
+    index = 0;
+    // blockBtn = true;
+    playerArray = [];
+    baseArray = [];
 }
 
 function fillBaseArray() {
-    buttons.forEach(button =>button.removeEventListener("click", buttonClicked));
     baseArray = [];
     for (let i = 0; i < level; i++) {
         let randomNum = Math.floor(Math.random() * 5);
@@ -54,10 +55,6 @@ function playSequence(){
         if(index<baseArray.length){
             playSequence(index);
         }
-
-        if(index===baseArray.length){
-            buttons.forEach(button =>button.addEventListener("click", buttonClicked));
-        }
     },1300);
 }
 
@@ -67,52 +64,34 @@ function pressing(index){
     let button=buttons[btnNum];
     playSound(btnNum);
     button.classList.add("clicking-button");
-    changeBodyColor(button);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },600);
+    },700);
 }
 
 function playSound(num){
     audios["audio"+num].play();
 }
 
-function buttonClicked() {
-    changeBodyColor(this);
-    if(playerArray.length<baseArray.length){
-        let btnNum = Number(this.dataset.num);
-        playerArray.push(btnNum);
-        playSound(btnNum);
+function clickBtn(val) {
+    baseArray=[1,3,4,5,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    let button=buttons[val];
+    if (playerArray.length < baseArray.length) {
+        playerArray.push(val);
+        button.classList.add("clicking-button");
+        setTimeout(() => {
+        button.classList.remove("clicking-button");
+        }, 100);
+        playSound(val);
     }
+    console.log(playerArray)
 }
 
-function changeBodyColor(buttonNumber){
-    let button=buttonNumber;
-    let cssColor= getComputedStyle(button);
-    document.body.style.background = cssColor.background;
-}
-
-function checkForMatch() {
-    if (checkArrays(playerArray, baseArray)) {
-        level++;
-        score.innerHTML=level;
-        round();
-    }    
-}
-
-function checkArrays(playerArr, baseArr){
-    if (playerArr.length !== baseArr.length) return false;
+function checkForMatch(playerArr, baseArr){
     for( let i=0;i<baseArr.length;i++){
         if(baseArr[i]!==playerArr[i]){
-            let myWindow=window.open("../start&end-pages/game-over.html","_self");
+            return false;    
         }    
     }
     return true;
-}
-
-function resetValues(){
-    index=0;
-    blockBtn=true;
-    playerArray=[]
-    baseArray=[];
 }
