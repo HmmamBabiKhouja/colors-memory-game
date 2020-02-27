@@ -4,16 +4,14 @@ let buttons=document.querySelectorAll(".button")
 let score = document.querySelector("#score-count");
 let audios={};
 
-    for(let i =0; i<4;i++){
-        audios[`audio${i}`]= new Audio(`../sounds/sound (${i}).wav`)
-    }
+for (let i = 0; i < buttons.length; i++) {
+    audios[`audio${i}`] = new Audio(`../sounds/sound (${i}).wav`);
+}
 
 // button sequence player should memorize
 let baseArray=[];
 // player input 
 let playerArray=[];
-// index of buttons 
-let index=0;
 // number of buttons clicked on a round
 let level = 2;
 // block button of getting clicked
@@ -21,11 +19,9 @@ let blockBtn=true;
 // to loop and run round function again;
 let anotherRound=true;
 
-while(anotherRound){
+// while(anotherRound){
     round();
-}
-
-
+// }
 
 //////////////////////////////
 ///////// functions //////////
@@ -39,13 +35,12 @@ function round(){
     //play the sequence to the play so he can memeorize it
     playSequence();
     // checks if the player's array is equal to 
-    let checkMatch=setInterval(checkForMatch(),100);
+//     let checkMatch=setInterval(checkForMatch(),100);
 }
 
 function resetValues() {
     anotherRound=true;
     blockBtn=true;
-    index = 0;
     playerArray = [];
     baseArray = [];
 }
@@ -53,25 +48,23 @@ function resetValues() {
 function fillBaseArray() {
     baseArray = [];
     for (let i = 0; i < level; i++) {
-        let randomNum = Math.floor(Math.random() * 4);
+        let randomNum = Math.floor(Math.random() * buttons.length);
         baseArray.push(randomNum);
     }
 }
 
 // playing the seqence so the player can memorize them
 function playSequence(){
-    pressing(index);
-    index+=1;
-    setTimeout(()=>{
+    let index=0;
+    let keepPressing=setInterval(function(){
         if(index<baseArray.length){
-            playSequence(index);
-        }
-        
-        if(index===baseArray.length){
+            pressing(index);
+            index++;
+        }else if(index===baseArray.length){
+            clearInterval(keepPressing);
             clickBtn=false;
         }
-        
-    },1300);
+    }, 1100)
 }
 
 // does the effect of pressing
@@ -86,9 +79,6 @@ function pressing(num){
 }
 
 function playSound(num){
-    console.log(audios);
-    console.log(num);
-
     audios["audio"+num].play();
 }
 

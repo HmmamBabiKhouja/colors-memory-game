@@ -1,12 +1,17 @@
 @media only screen and ( min-width:1024px){
 
+    .game{
+        width: 94%;
+    }
+
     .buttons-container {
         margin: 0 auto;
         margin-bottom: 50px;
-        width:75%;
+        width:50%;
         height: max-content;
         flex-direction: row;
         justify-content: space-between;
+        transform: translate(0,-45px);
     }
 
 
