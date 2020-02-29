@@ -1,9 +1,16 @@
-// remember to block player input during sequence getting played 
+//////////////////////////////
+/////// DOM variables ////////
+//////////////////////////////
 
 let buttons=document.querySelectorAll(".button")
 let score = document.querySelector("#score-count");
-let audios={};
 
+//////////////////////////////
+////////// globals ///////////
+//////////////////////////////
+
+// objects of sounds will be played when the button is clicked
+let audios={};
 for (let i = 0; i < buttons.length; i++) {
     audios[`audio${i}`] = new Audio(`../sounds/sound (${i}).wav`);
 }
@@ -14,34 +21,34 @@ let baseArray=[];
 let playerArray=[];
 // number of buttons clicked on a round
 let level = 2;
-// block button of getting clicked
-let blockBtn=true;
+/* block button of getting clicked
+let blockBtn=true; */
 // to loop and run round function again;
 let anotherRound=true;
 
-// while(anotherRound){
+while(anotherRound){
     round();
-// }
+}
 
 //////////////////////////////
 ///////// functions //////////
 //////////////////////////////
 
 function round(){
-    anotherRound=false;
     resetValues();
+    anotherRound=false;
     //it makes the sequence that player should remember
     fillBaseArray();
+    //little delay between rounds
+    setTimeout(()=>{},250);
     //play the sequence to the play so he can memeorize it
     playSequence();
-    // checks if the player's array is equal to 
-//     let checkMatch=setInterval(checkForMatch(),100);
+    window.inputInterval = setInterval(checkInput(), 500);
 }
 
 function resetValues() {
+    buttons.forEach(button => button.removeEventListener("click",clickBtn));
     anotherRound=true;
-    blockBtn=true;
-    playerArray = [];
     baseArray = [];
 }
 
@@ -62,50 +69,47 @@ function playSequence(){
             index++;
         }else if(index===baseArray.length){
             clearInterval(keepPressing);
-            clickBtn=false;
+            buttons.forEach((button)=> button.addEventListener("click",clickBtn));
         }
-    }, 1100)
+    }, 1200)
 }
 
 // does the effect of pressing
 function pressing(num){
     let btnNum=baseArray[num];
     let button=buttons[btnNum];
-    playSound(btnNum);
     button.classList.add("clicking-button");
+    playSound(btnNum);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },700);
+    },1000);
 }
 
 function playSound(num){
     audios["audio"+num].play();
 }
 
-function clickBtn(num) {
-    let button=buttons[num];
-    if (!blockBtn) {
+function clickBtn() {
+        let num=this.dataset.num;
         playerArray.push(num);
         button.classList.add("clicking-button");
-        setTimeout(() => {
-        button.classList.remove("clicking-button");
+        setTimeout(() => {  
+            button.classList.remove("clicking-button");
         }, 100);
         playSound(num);
-    }
+        //input length is equal with baseArray
+        if(playerArray.length===level) checkInput();
 }
 
-function checkInput(){
-    if(playerArray.length!==baseArray.length) return;
-    
+function checkInput(){    
     if(checkForMatch()){
-        clearInterval(checkForMatch);
         resetValues();
         level++;
+        clearInterval(inputInterval);
     }else{
         window.location.href="../start&end-pages/game-over.html"
     }
 }
-
 
 function checkForMatch(){
     for( let i=0;i<baseArray.length;i++){
