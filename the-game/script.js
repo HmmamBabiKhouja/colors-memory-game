@@ -43,13 +43,16 @@ function round(){
     setTimeout(()=>{},250);
     //play the sequence to the play so he can memeorize it
     playSequence();
-    window.inputInterval = setInterval(checkInput(), 500);
+    
+//     window.inputInterval = setInterval(checkInput(), 500);
+
 }
 
 function resetValues() {
     buttons.forEach(button => button.removeEventListener("click",clickBtn));
     anotherRound=true;
     baseArray = [];
+    playerArray=[];
 }
 
 function fillBaseArray() {
@@ -90,26 +93,24 @@ function playSound(num){
 }
 
 function clickBtn() {
-        let num=this.dataset.num;
-        playerArray.push(num);
-        button.classList.add("clicking-button");
-        setTimeout(() => {  
-            button.classList.remove("clicking-button");
-        }, 100);
-        playSound(num);
-        //input length is equal with baseArray
-        if(playerArray.length===level) checkInput();
-}
-
-function checkInput(){    
-    if(checkForMatch()){
+    let num = Number(this.dataset.num);
+    playerArray.push(num);
+    buttons[num].classList.add("clicking-button");
+    setTimeout(() => {
+        buttons[num].classList.remove("clicking-button");
+    }, 100);
+    playSound(num);
+    if (playerArray.length === baseArray.length) {
+        if (checkForMatch()) {
         resetValues();
-        level++;
-        clearInterval(inputInterval);
-    }else{
-        window.location.href="../start&end-pages/game-over.html"
+        score.innerHTML=level+=1;
+        round();
+        } else if (!checkForMatch()) {
+        window.location.href = "../start&end-pages/game-over.html";
+        }
     }
 }
+
 
 function checkForMatch(){
     for( let i=0;i<baseArray.length;i++){
