@@ -15,16 +15,17 @@ for (let i = 0; i < buttons.length; i++) {
     audios[`audio${i}`] = new Audio(`../sounds/sound (${i}).wav`);
 }
 
-// button sequence player should memorize
+// sequence players should memorize
 let baseArray=[];
-// player input 
+// player input should be identical to baseArray
 let playerArray=[];
-// number of buttons clicked on a round
 let level = 2;
-/* block button of getting clicked
-let blockBtn=true; */
-// to loop and run round function again;
+// or flag;
 let anotherRound=true;
+
+//////////////////////////////
+///////// the-game //////////
+//////////////////////////////
 
 while(anotherRound){
     round();
@@ -40,15 +41,12 @@ function round(){
     //it makes the sequence that player should remember
     fillBaseArray();
     //little delay between rounds
-    setTimeout(()=>{},250);
+    setTimeout(()=>{},400);
     //play the sequence to the play so he can memeorize it
     playSequence();
-    
-//     window.inputInterval = setInterval(checkInput(), 500);
-
 }
 
-function resetValues() {
+function resetValues(){
     buttons.forEach(button => button.removeEventListener("click",clickBtn));
     anotherRound=true;
     baseArray = [];
@@ -63,7 +61,7 @@ function fillBaseArray() {
     }
 }
 
-// playing the seqence so the player can memorize them
+// playing the seqence to user
 function playSequence(){
     let index=0;
     let keepPressing=setInterval(function(){
@@ -74,7 +72,7 @@ function playSequence(){
             clearInterval(keepPressing);
             buttons.forEach((button)=> button.addEventListener("click",clickBtn));
         }
-    }, 1200)
+    }, 1050)
 }
 
 // does the effect of pressing
@@ -85,13 +83,14 @@ function pressing(num){
     playSound(btnNum);
     setTimeout(()=> {
         button.classList.remove("clicking-button");
-    },1000);
+    },850);
 }
 
 function playSound(num){
     audios["audio"+num].play();
 }
 
+// gets user's input, 
 function clickBtn() {
     let num = Number(this.dataset.num);
     playerArray.push(num);
@@ -106,11 +105,10 @@ function clickBtn() {
         score.innerHTML=level+=1;
         round();
         } else if (!checkForMatch()) {
-        window.location.href = "../start&end-pages/game-over.html";
+            let myWindow=window.location.href = "../start&end-pages/game-over.html";
         }
     }
 }
-
 
 function checkForMatch(){
     for( let i=0;i<baseArray.length;i++){

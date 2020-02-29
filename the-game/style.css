@@ -24,16 +24,16 @@ nav{
     justify-content: space-between;
 }
 
-.score{
+p{
     color: #ffffff;
-    font-size:2rem;
+    font-size:2.1rem;
 }
 
 .link,
 .link:visited,
 .icon {
     color: #ffffff;
-    font-size:3rem;
+    font-size:3.1rem;
 }
 
 .game{
