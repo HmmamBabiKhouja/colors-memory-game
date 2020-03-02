@@ -105,7 +105,7 @@ function clickBtn() {
         score.innerHTML=level+=1;
         round();
         } else if (!checkForMatch()) {
-            let myWindow=window.location.href = "../start&end-pages/game-over.html";
+            let endWindow=window.location.href = `../start&end-pages/game-over.html?score=${level}`;
         }
     }
 }
