@@ -1,4 +1,4 @@
-@media only screen and ( min-width:1024px){
+@media only screen and (min-width:1024px){
 
     html{
         font-size: 20px;
@@ -17,6 +17,5 @@
         justify-content: space-between;
         transform: translate(0,-45px);
     }
-
 
 } 

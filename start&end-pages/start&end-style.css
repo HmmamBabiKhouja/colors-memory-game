@@ -15,7 +15,13 @@ body {
 .block{
     width: 60vw;
     margin: 0 auto;
-    transform: translate(0,80%);
+    transform: translate(0,40%);
+}
+
+@media only screen and (min-width:1024px){
+    .block {
+        transform: translate(0, 80%);
+    }
 }
 
 h2,
