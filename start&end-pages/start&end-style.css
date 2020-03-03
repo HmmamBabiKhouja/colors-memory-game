@@ -9,34 +9,25 @@ body {
     height: 100vh;
     font-family: 'Lato', serif;
     text-align: center;
-
+    display: flex;
+    align-items: center;
+    transform: translate(0, -5%);
+    color: #ffffff;
 }
 
 .block{
-    width: 60vw;
+    width: 64vw;
     margin: 0 auto;
-    transform: translate(0,20%);
-}
-
-@media only screen and (min-width:1024px){
-    .block {
-        transform: translate(0, 50%);
-    }
-}
-
-h2,
-p,
-.block-icon{
-    color: #ffffff;
-    margin-bottom: 2rem;
 }
 
 h2{
     font-size: 3.2rem;
+    margin-bottom: 3rem;
 }
 
 p{
-font-size: 1.6rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.8rem;
 }
 
 .link{

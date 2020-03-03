@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     overflow-x: hidden;
     width: 100vw;
     height: 100vh;
@@ -13,6 +13,12 @@ body{
     display: flex;
     flex-direction: column;
     color: #ffffff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 nav{
@@ -79,12 +85,6 @@ p{
     border-radius: 50%;
     border: solid 4px #000000;
     cursor: pointer;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .clicking-button{
