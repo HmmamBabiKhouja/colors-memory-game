@@ -12,6 +12,7 @@ body{
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    color: #ffffff;
 }
 
 nav{
@@ -19,21 +20,38 @@ nav{
     height: 75px;
     margin: auto;
     margin-top:15px ;
-    padding-top: 12px;
     display: flex;
     justify-content: space-between;
+    align-content: center;
+}
+
+.my-logo{
+    width: 60px;
+}
+
+.info-block{
+    width: 50vw;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translate(0,20%);
 }
 
 p{
-    color: #ffffff;
-    font-size:2.1rem;
+    font-size:1.8rem;
+    height: min-content;
 }
 
 .link,
-.link:visited,
-.icon {
-    color: #ffffff;
+.link:visited{
+    height: fit-content;    
     font-size:3.1rem;
+    color: #ffffff;
+}
+
+.icon{
+    font-size:2.6rem ;
 }
 
 .game{
